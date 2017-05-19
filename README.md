@@ -1,6 +1,6 @@
 This is a very simple dockule for sshd, based on CentOS.
 
-Only tested running on Atomic host.
+Only tested running on Atomic host. Note that this is pretty specific to me because my username and public SSH keys are in the Ansible playbook.yml.
 
 Install:
  * docker pull cmsj/sshd

@@ -1,10 +1,6 @@
 ---
 - hosts: localhost
   tasks:
-    - name: Set the hostname
-      hostname:
-        name: jump
-
     - name: Set the timezone
       timezone:
         name: Europe/London

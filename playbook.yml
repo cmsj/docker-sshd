@@ -1,0 +1,67 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Set the hostname
+      hostname:
+        name: jump
+
+    - name: Set the timezone
+      timezone:
+        name: Europe/London
+
+    - name: Install packages
+      yum:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - yum-cron
+        - openssh-server
+        - sudo
+
+    - name: Configure SSH: Disable root logins
+      replace:
+        name: /etc/ssh/sshd_config
+        regexp: '^#PermitRootLogin yes'
+        replace: 'PermitRootLogin no'
+
+    - name: Configure SSH: Disable Password Authentication
+      replace:
+        name: /etc/ssh/sshd_config
+        regexp: '^PasswordAuthentication yes'
+        replace: 'PasswordAuthentication no'
+
+    - name: Configure yum-cron: update messages
+      replace:
+        name: /etc/yum/yum-cron-hourly.conf
+        regexp: '^update_messages = no'
+        replace: 'update_messages = yes'
+
+    - name: Configure yum-cron: download_updates
+      replace:
+        name: /etc/yum/yum-cron-hourly.conf
+        regexp: '^apply_updates = no'
+        replace: 'apply_updates = yes'
+
+    - name: Enable services
+      systemd:
+        name: "{{ item }}"
+        enabled: yes
+        state: started
+      with_items:
+        - crond
+        - sshd
+
+    - name: Add my account
+      user:
+        name: cmsj
+        groups: wheel
+        state: present
+
+    - name: Add my authorized ssh keys
+      authorized_key:
+        user: cmsj
+        state: present
+        key: "{{ item }}"
+      with_items:
+        - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDFEQtLAva4QFGKWm1jVhkh1g0V3pXEOgSYSA1r/lnswQb1VxdumaWWHXEE8TKYR6YIPfOaD/VHIC1p1cYYrfhbVInradqjOPVZM96lM8b8UhbANsLH3C9+tP0Pb63HarEVXlS+HZxDIQ8UVrUw/EstSFUILHWY7DgLKUF3vVvtKM0VEaOdOix60FaCj/2sXlQ7dz5Xz3cQKKM7lszwzNiNlpSO+BxoK7U+t0I4ZL8SQJLiHvY7GoBFaPmzEg2dz6YmM/r2PXaxbcYCwO/JZ0Wi2jy1NCtVI6zcbfBOqDbcQcS9MR2F2MNKfI1qb8kFyW+fXttTLNQIhsAY9nr9I7rl cmsj@pixukipa.local"
+        - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6RkGHgKFoGfrI5Bnnp0Ph3mIyyp1nd5uMNZ0QPrG7VQ5JowfvunyP4JPM5OUfYmczA2jlMsnpOgAwc4ApIFwD/pQfI2h0/csKWhXzA6DnnenyTbMD3ZUpMOU6Yls9kHa2WiJgaDCXFHwPoYi7lfNVYvtQcDFilApOXOldi9QoEdIS3UYY2L+UZrYlHlZ5um3lKkz8+Yjcw3fbeZkZhpzIYuqSvn9hAt1/ZowkEYJ6Ln4T+rZR0G9zgtnGVJmZADISWOX9Ve3SyuPPCwa9ZAfzJsS49ZpZEIfkkdjc5QLsxsgJxVrPFLvQPoCCf42bw+D6S1m9r/CDILTkRltPfa+9 cmsj@kiryo.local"

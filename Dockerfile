@@ -2,11 +2,9 @@ FROM centos/systemd:latest
 MAINTAINER cmsj@tenshu.net
 RUN yum install -y deltarpm yum-utils && \
     yum update -y && \
-    yum install -y yum-cron openssh-server && \
+    yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
+    yum install -y git ansible && \
     yum clean all
-RUN sed -i 's/update_messages = no/update_messages = yes/' /etc/yum/yum-cron-hourly.conf && \
-    sed -i 's/download_updates = no/download_updates = yes/' /etc/yum/yum-cron-hourly.conf && \
-    sed -i 's/apply_updates = no/apply_updates = yes/' /etc/yum/yum-cron-hourly.conf
-RUN systemctl enable crond && systemctl enable sshd
+RUN cd /root && git clone https://github.com/cmsj/docker-sshd.git && cd docker-sshd && ansible-playbook playbook.yml
 VOLUME /sys/fs/cgroup
 EXPOSE 22

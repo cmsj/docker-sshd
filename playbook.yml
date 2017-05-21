@@ -1,10 +1,6 @@
 ---
 - hosts: localhost
   tasks:
-    - name: Set the timezone
-      timezone:
-        name: Europe/London
-
     - name: Install packages
       yum:
         name: "{{ item }}"

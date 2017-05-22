@@ -1,0 +1,10 @@
+version: "2"
+services:
+    ssh:
+        image: centos/systemd:latest
+        ports:
+            - 22
+        volumes:
+            - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+
+registries: {}

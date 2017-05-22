@@ -12,7 +12,7 @@ services:
     - docker
 
 script:
-    - ansible-container build --from-scratch
+    - ansible-container build
 
 after_success:
     - if [ "$TRAVIS_BRANCH" == "master" ]; then

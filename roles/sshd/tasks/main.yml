@@ -33,10 +33,10 @@
     replace: 'apply_updates = yes'
 
 - name: Enable services
-  systemd:
-    name: "{{ item }}"
-    enabled: yes
-    state: started
+  file:
+    src: "/usr/lib/systemd/system/{{ item }}.service"
+    dest: "/etc/systemd/system/multi-user.target.wants/{{ item }}.service"
+    state: link
   with_items:
     - crond
     - sshd

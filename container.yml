@@ -5,7 +5,7 @@ services:
         roles:
             - sshd
         ports:
-            - 22
+            - "22:22"
         volumes:
             - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
 

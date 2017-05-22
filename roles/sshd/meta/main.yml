@@ -1,0 +1,4 @@
+---
+galaxy_info:
+  author: Chris Jones
+  description: Configure a container for running sshd under systemd

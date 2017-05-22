@@ -1,7 +1,9 @@
 version: "2"
 services:
     ssh:
-        image: centos/systemd:latest
+        from: centos/systemd:latest
+        roles:
+            - sshd
         ports:
             - 22
         volumes:

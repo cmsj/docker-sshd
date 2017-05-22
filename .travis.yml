@@ -6,7 +6,7 @@ before_install:
     - sudo apt-get update -qq
 
 install:
-    - pip install ansible ansible-container
+    - pip install ansible ansible-container[docker]
 
 services:
     - docker

@@ -1,6 +1,6 @@
 version: "2"
 services:
-    ssh:
+    docker-sshd:
         from: centos/systemd:latest
         roles:
             - sshd

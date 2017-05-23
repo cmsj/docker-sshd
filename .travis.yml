@@ -19,6 +19,6 @@ after_success:
     - if [ "$TRAVIS_BRANCH" == "master" ]; then
        docker login -u "$DOCKERHUB_NAME" -p="$DOCKERHUB_PASS";
        docker images;
-       docker tag ssh:latest cmsj/docker-sshd:latest;
+       docker tag docker-sshd-docker-sshd:latest cmsj/docker-sshd:latest;
        docker push cmsj/docker-sshd:latest;
       fi

@@ -9,6 +9,6 @@ services:
         volumes:
             - "/sys/fs/cgroup"
         entrypoint:
-            - ["/usr/sbin/init"]
+            - "/usr/sbin/init"
 
 registries: {}

@@ -5,9 +5,9 @@ services:
         roles:
             - sshd
         ports:
-            - "2222:22"
+            - "22"
         volumes:
-            - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+            - "/sys/fs/cgroup"
         entrypoint:
             - ["/usr/sbin/init"]
 

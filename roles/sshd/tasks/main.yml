@@ -40,6 +40,7 @@
   with_items:
     - crond
     - sshd
+    - systemd-user-sessions
 
 - name: Add my account
   user:

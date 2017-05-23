@@ -8,5 +8,7 @@ services:
             - "2222:22"
         volumes:
             - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+        entrypoint:
+            - ["/usr/sbin/init"]
 
 registries: {}

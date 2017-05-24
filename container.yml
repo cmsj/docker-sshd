@@ -8,6 +8,13 @@ services:
             - "22"
         volumes:
             - "/sys/fs/cgroup"
+            - "ssh_host_ecdsa_key"
+            - "ssh_host_ecdsa_key.pub"
+            - "ssh_host_ed25519_key"
+            - "ssh_host_ed25519_key.pub"
+            - "ssh_host_rsa_key"
+            - "ssh_host_rsa_key.pub"
+
         entrypoint:
             - "/usr/sbin/init"
 

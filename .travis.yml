@@ -7,7 +7,10 @@ before_install:
     - docker pull centos/systemd:latest
 
 install:
-    - pip install ansible ansible-container[docker]
+    - git clone https://github.com/ansible/ansible-container.git
+    - cd ansible-container
+    - pip install -e .[docker]
+    #    - pip install ansible ansible-container[docker]
 
 services:
     - docker

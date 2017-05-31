@@ -10,6 +10,7 @@ install:
     - git clone https://github.com/ansible/ansible-container.git
     - cd ansible-container
     - pip install -e .[docker]
+    - cd ..
     #    - pip install ansible ansible-container[docker]
 
 services:
